@@ -1,0 +1,6 @@
+{
+  "name": "TruPaintz & Interiors – Luxury Interior Design & Architectural Painting",
+  "description": "Premier interior design studio and luxury painting specialists. Bespoke living spaces, designer modular kitchens, Italian texture finishes, and 3D room styling.",
+  "requestFramePermissions": ["notifications"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
