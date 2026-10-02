@@ -15,10 +15,8 @@ import {
   Plus, 
   FileText,
   Filter,
-  Check,
-  Smartphone
+  Check
 } from 'lucide-react';
-import { AppDownloadBanner } from './AppDownloadBanner';
 
 interface SiteProject {
   id: string;
@@ -169,10 +167,6 @@ export const ProjectManagerDashboard: React.FC<{ onBackToHome: () => void }> = (
         </div>
       </div>
 
-      {/* Mobile App Download Card (Android APK) */}
-      <div className="mt-8">
-        <AppDownloadBanner />
-      </div>
 
       {/* Quantitative Rigor Stats Row (Anti-Slop Tabular Numbers) */}
       <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">

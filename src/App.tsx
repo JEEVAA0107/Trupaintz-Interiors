@@ -18,7 +18,6 @@ import { LiveChatConcierge } from './components/LiveChatConcierge';
 import { AuthModal } from './components/AuthModal';
 import { EmailModal } from './components/EmailModal';
 import { Footer } from './components/Footer';
-import { AppDownloadBanner } from './components/AppDownloadBanner';
 
 function MainContent() {
   const { user } = useAuth();
@@ -66,10 +65,6 @@ function MainContent() {
               onOpenVisualizer={() => scrollTo('visualizer')}
             />
 
-            {/* Mobile App Download Card (Android APK) */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full">
-              <AppDownloadBanner />
-            </div>
 
             {/* Interactive 3D Project Carousel */}
             <ProjectCarousel
