@@ -32,13 +32,25 @@ New-Item -ItemType Directory -Force -Path "$WorkDir\bin" | Out-Null
 New-Item -ItemType Directory -Force -Path "$WorkDir\obj" | Out-Null
 New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 
-# Copy App Icon
-Copy-Item "$PSScriptRoot\..\public\app-icon.png" "$WorkDir\res\mipmap\ic_launcher.png"
-
 function Write-Utf8NoBom ($filePath, $content) {
     $utf8NoBom = New-Object System.Text.UTF8Encoding $false
     [System.IO.File]::WriteAllText($filePath, $content, $utf8NoBom)
 }
+
+# Ensure React website is built
+Write-Host "Building React production website bundle..."
+Push-Location "$PSScriptRoot\.."
+& node "./node_modules/vite/bin/vite.js" build
+Pop-Location
+
+# Copy actual built website into APK assets (excluding apk downloads)
+Write-Host "Embedding real website into APK assets..."
+Get-ChildItem "$PSScriptRoot\..\dist" | Where-Object { $_.Name -ne "downloads" -and $_.Name -notlike "*.apk" } | ForEach-Object {
+    Copy-Item -Recurse -Force $_.FullName "$WorkDir\assets\"
+}
+
+# Copy App Icon
+Copy-Item "$PSScriptRoot\..\public\app-icon.png" "$WorkDir\res\mipmap\ic_launcher.png"
 
 # Write Strings
 Write-Utf8NoBom "$WorkDir\res\values\strings.xml" @"
@@ -48,13 +60,13 @@ Write-Utf8NoBom "$WorkDir\res\values\strings.xml" @"
 </resources>
 "@
 
-# Write AndroidManifest.xml
+# Write AndroidManifest.xml (v2.5.0)
 Write-Utf8NoBom "$WorkDir\AndroidManifest.xml" @"
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trupaintz.app"
-    android:versionCode="204"
-    android:versionName="2.4.0">
+    android:versionCode="250"
+    android:versionName="2.5.0">
 
     <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="34" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -82,118 +94,7 @@ Write-Utf8NoBom "$WorkDir\AndroidManifest.xml" @"
 </manifest>
 "@
 
-# Write Assets index.html
-Write-Utf8NoBom "$WorkDir\assets\index.html" @"
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>TruPaintz Mobile Companion</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    body { background: #0c0a09; color: #f5f5f4; min-height: 100vh; padding: 20px 16px 80px; }
-    .header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid #292524; }
-    .brand { font-size: 20px; font-weight: 700; color: #f59e0b; letter-spacing: -0.5px; }
-    .badge { font-size: 11px; padding: 4px 8px; border-radius: 999px; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-weight: 600; }
-    .card { background: #1c1917; border: 1px solid #292524; border-radius: 16px; padding: 18px; margin-top: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-    .title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #a8a29e; margin-bottom: 8px; }
-    .metric { font-size: 28px; font-weight: 800; color: #fafaf9; font-variant-numeric: tabular-nums; }
-    .subtext { font-size: 12px; color: #10b981; margin-top: 4px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; margin-top: 12px; transition: all 0.2s; }
-    .btn-gold { background: linear-gradient(135deg, #d97706, #b45309); color: #fff; box-shadow: 0 4px 14px rgba(217,119,6,0.4); }
-    .btn-outline { background: transparent; border: 1px solid #44403c; color: #e7e5e4; }
-    .url-box { margin-top: 16px; background: #141210; padding: 12px; border-radius: 12px; border: 1px dashed #44403c; }
-    .url-input { width: 100%; padding: 10px; background: #1c1917; border: 1px solid #292524; border-radius: 8px; color: #f5f5f4; font-size: 13px; margin-top: 6px; }
-    .site-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #292524; }
-    .site-name { font-size: 14px; font-weight: 600; color: #f5f5f4; }
-    .site-stage { font-size: 12px; color: #a8a29e; margin-top: 2px; }
-    .site-pct { font-size: 14px; font-weight: 700; color: #f59e0b; }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <div>
-      <div class="brand">TruPaintz &amp; Interiors</div>
-      <div style="font-size: 12px; color: #a8a29e; margin-top: 2px;">Field Operations &amp; Client App</div>
-    </div>
-    <span class="badge">v2.4.0 Online</span>
-  </div>
-
-  <div class="card">
-    <div class="title">Active Operations Summary</div>
-    <div class="grid">
-      <div>
-        <div style="font-size: 11px; color: #78716c;">ACTIVE SITES</div>
-        <div class="metric">4</div>
-        <div class="subtext">100% Mechanized</div>
-      </div>
-      <div>
-        <div style="font-size: 11px; color: #78716c;">TOTAL PIPELINE</div>
-        <div class="metric">&#8377;33.9L</div>
-        <div style="font-size: 12px; color: #a8a29e; margin-top: 4px;">Bengaluru Sites</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="title">Live Project Feed</div>
-    <div class="site-item">
-      <div>
-        <div class="site-name">Greenwood Heights 3BHK</div>
-        <div class="site-stage">Italian Stucco &middot; Sarjapur</div>
-      </div>
-      <div class="site-pct">72%</div>
-    </div>
-    <div class="site-item">
-      <div>
-        <div class="site-name">The Solarium Penthouse</div>
-        <div class="site-stage">Handover Audit &middot; Indiranagar</div>
-      </div>
-      <div class="site-pct">95%</div>
-    </div>
-    <div class="site-item" style="border: none;">
-      <div>
-        <div class="site-name">Prestige Lakeside Villa 14</div>
-        <div class="site-stage">Putty &amp; Primer &middot; Varthur</div>
-      </div>
-      <div class="site-pct">48%</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="title">Lead Architect Hotline</div>
-    <div style="font-size: 13px; color: #d6d3d1; margin-bottom: 8px;">Arun Kumar (Site Supervisor)</div>
-    <a href="tel:+919876543210" class="btn btn-gold">&#128222; Call Site Architect (+91 98765-43210)</a>
-    <a href="https://wa.me/919876543210?text=Hi%20Arun%2C%20checking%20my%20TruPaintz%20interior%20project%20status." class="btn btn-outline">&#128172; Open WhatsApp Chat</a>
-  </div>
-
-  <div class="card url-box">
-    <div class="title">Connect to Live Portal Server</div>
-    <p style="font-size: 12px; color: #a8a29e;">To load your real-time full web studio on this phone, enter your host IP (e.g., http://192.168.1.5:3000):</p>
-    <input type="text" id="serverUrl" class="url-input" placeholder="http://192.168.x.x:3000" />
-    <button class="btn btn-gold" onclick="loadLiveServer()" style="margin-top: 8px;">Load Live Web App</button>
-  </div>
-
-  <script>
-    function loadLiveServer() {
-      var val = document.getElementById('serverUrl').value.trim();
-      if (!val) {
-        alert('Please enter a server address (e.g. http://192.168.1.10:3000)');
-        return;
-      }
-      if (!val.startsWith('http://') && !val.startsWith('https://')) {
-        val = 'http://' + val;
-      }
-      window.location.href = val;
-    }
-  </script>
-</body>
-</html>
-"@
-
-# Write MainActivity.java
+# Write MainActivity.java (Loads EXACT live website + local fallback)
 Write-Utf8NoBom "$WorkDir\src\com\trupaintz\app\MainActivity.java" @"
 package com.trupaintz.app;
 
@@ -269,7 +170,7 @@ public class MainActivity extends Activity {
         settings.setUseWideViewPort(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        settings.setUserAgentString(settings.getUserAgentString() + " TruPaintzApp/2.4.0");
+        settings.setUserAgentString(settings.getUserAgentString() + " TruPaintzApp/2.5.0");
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -292,17 +193,8 @@ public class MainActivity extends Activity {
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
                 if (request.isForMainFrame()) {
-                    String offlineHtml = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'>"
-                            + "<style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;text-align:center;padding:60px 24px;}"
-                            + "h1{color:#f59e0b;font-size:24px;margin-bottom:12px;}"
-                            + "p{color:#a8a29e;font-size:14px;line-height:1.5;margin-bottom:30px;}"
-                            + "button{background:linear-gradient(135deg, #d97706, #b45309);color:#fff;border:none;padding:14px 28px;border-radius:12px;font-size:15px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(217,119,6,0.3);}"
-                            + "</style></head><body>"
-                            + "<h1>TruPaintz &amp; Interiors</h1>"
-                            + "<p>Unable to load the live website. Please check your mobile internet or Wi-Fi connection and tap retry.</p>"
-                            + "<button onclick='location.reload()'>&#8635; Retry Connection</button>"
-                            + "</body></html>";
-                    view.loadDataWithBaseURL(null, offlineHtml, "text/html", "UTF-8", null);
+                    // If network fails, load the bundled offline website from assets
+                    view.loadUrl("file:///android_asset/index.html");
                 }
             }
         });
@@ -385,7 +277,6 @@ $ClassFiles = Get-ChildItem -Recurse -Path "$WorkDir\bin\classes\*.class" | Sele
 & $D8 --lib $PLATFORM_JAR --output "$WorkDir\bin" $ClassFiles
 
 Write-Host "5. Adding classes.dex to APK..."
-# We can use jar.exe from JDK to insert classes.dex into app-unaligned.apk
 Push-Location "$WorkDir\bin"
 & "$JAVA_HOME\bin\jar.exe" -uf "$WorkDir\bin\app-unaligned.apk" classes.dex
 Pop-Location
@@ -401,14 +292,17 @@ if (-not (Test-Path $Keystore)) {
     & $KEYTOOL -genkey -v -keystore $Keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
 }
 
-$SignedApk = "$WorkDir\bin\TruPaintz-Interiors.apk"
+$SignedApk = "$WorkDir\bin\TruPaintz-Release-v2.5.0.apk"
 & $APKSIGNER sign --ks $Keystore --ks-pass pass:android --ks-key-alias androiddebugkey --key-pass pass:android --out $SignedApk $AlignedApk
 
-$FinalApk = "$OutputDir\TruPaintz-Interiors.apk"
+$FinalApk = "$OutputDir\TruPaintz-Release-v2.5.0.apk"
 Copy-Item $SignedApk $FinalApk -Force
+
+# Also update other alias filenames for safety
+Copy-Item $SignedApk "$OutputDir\TruPaintz-v2.5.0.apk" -Force
 Copy-Item $SignedApk "$OutputDir\TruPaintz-v2.4.0.apk" -Force
+Copy-Item $SignedApk "$OutputDir\TruPaintz-Interiors.apk" -Force
 Copy-Item $SignedApk "$PSScriptRoot\..\public\TruPaintz.apk" -Force
 
 Write-Host "APK Build successful! Generated:"
 Get-Item $FinalApk | Select-Object Name, Length, LastWriteTime
-

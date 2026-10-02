@@ -29,9 +29,9 @@ export const AppDownloadBanner: React.FC<AppDownloadBannerProps> = ({
   const [showQrModal, setShowQrModal] = useState(false);
   const [showGuideModal, setShowGuideModal] = useState(false);
 
-  // Direct APK URL
-  const apkDownloadUrl = '/downloads/TruPaintz-v2.4.0.apk';
-  const apkFileName = 'TruPaintz-v2.4.0.apk';
+  // Direct APK URL with version cache buster
+  const apkDownloadUrl = '/downloads/TruPaintz-Release-v2.5.0.apk?v=250';
+  const apkFileName = 'TruPaintz-Release-v2.5.0.apk';
 
   const handleDownloadApp = () => {
     setDownloadStatus('downloading');
@@ -48,8 +48,8 @@ export const AppDownloadBanner: React.FC<AppDownloadBannerProps> = ({
     setTimeout(() => {
       setDownloadStatus('completed');
       addNotification(
-        'TruPaintz APK Download Started',
-        `${apkFileName} is downloading. Once finished, tap the APK file to install on your Android device.`,
+        'TruPaintz v2.5.0 APK Download Started',
+        `${apkFileName} is downloading. Once finished, tap the APK file to install the complete TruPaintz website app on your Android device.`,
         'system'
       );
     }, 800);
@@ -81,7 +81,6 @@ export const AppDownloadBanner: React.FC<AppDownloadBannerProps> = ({
                 alt="TruPaintz Mobile App Icon" 
                 className="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl border border-amber-500/30 object-cover shadow-md transition-transform duration-300 group-hover:scale-105"
                 onError={(e) => {
-                  // Fallback if image path has issue
                   (e.target as HTMLElement).style.display = 'none';
                 }}
               />
@@ -98,14 +97,14 @@ export const AppDownloadBanner: React.FC<AppDownloadBannerProps> = ({
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-0.5 text-[11px] font-semibold text-amber-700 dark:text-amber-400 border border-amber-500/30">
                   <Sparkles className="h-3 w-3" />
-                  Official Android APK
+                  Official Android App
                 </span>
                 <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-medium">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  v2.4.0 (Release)
+                  v2.5.0 (Full Web App APK)
                 </span>
                 <span className="text-[11px] text-neutral-400 dark:text-neutral-500 hidden sm:inline">
-                  · 49.7 KB · Android 8.0+
+                  · Exact Live Website · Android 8.0+
                 </span>
               </div>
 
@@ -114,7 +113,7 @@ export const AppDownloadBanner: React.FC<AppDownloadBannerProps> = ({
               </h3>
 
               <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-1 sm:line-clamp-none">
-                Install directly on your phone to track site milestones, view camera feeds &amp; chat with lead architects anytime.
+                Install directly on your phone to run the EXACT full website with 3D Studio, Carousel, Estimator, and Portals.
               </p>
             </div>
           </div>
