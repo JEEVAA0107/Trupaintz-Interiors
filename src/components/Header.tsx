@@ -83,6 +83,26 @@ export const Header: React.FC<HeaderProps> = ({ activeView, setActiveView, onOpe
           >
             Journal
           </button>
+          <button
+            onClick={() => setActiveView('dashboard')}
+            className={`hover:text-neutral-900 transition-colors dark:hover:text-white ${
+              activeView === 'dashboard'
+                ? 'text-amber-600 font-bold underline decoration-amber-500 underline-offset-8 dark:text-amber-400'
+                : ''
+            }`}
+          >
+            Dashboard
+          </button>
+          <button
+            onClick={() => setActiveView('portal')}
+            className={`hover:text-neutral-900 transition-colors dark:hover:text-white ${
+              activeView === 'portal'
+                ? 'text-amber-600 font-bold underline decoration-amber-500 underline-offset-8 dark:text-amber-400'
+                : ''
+            }`}
+          >
+            Client Portal
+          </button>
           <a
             href={BRAND_INFO.instagramUrl}
             target="_blank"
@@ -282,6 +302,26 @@ export const Header: React.FC<HeaderProps> = ({ activeView, setActiveView, onOpe
               className="text-left py-2 hover:text-amber-600 transition-colors"
             >
               Design Trends &amp; Journal
+            </button>
+            <button
+              onClick={() => {
+                setActiveView('dashboard');
+                setIsMobileMenuOpen(false);
+              }}
+              className="text-left py-2 font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors flex items-center justify-between"
+            >
+              <span>Manager Dashboard</span>
+              <span className="text-[11px] bg-amber-500/15 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full">Sites</span>
+            </button>
+            <button
+              onClick={() => {
+                setActiveView('portal');
+                setIsMobileMenuOpen(false);
+              }}
+              className="text-left py-2 font-semibold text-amber-600 dark:text-amber-400 hover:text-amber-500 transition-colors flex items-center justify-between"
+            >
+              <span>Client Portal</span>
+              <span className="text-[11px] bg-amber-500/15 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full">Live Project</span>
             </button>
             <a
               href={BRAND_INFO.instagramUrl}
