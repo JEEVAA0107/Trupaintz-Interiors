@@ -24,7 +24,7 @@ $KEYTOOL = "$JAVA_HOME\bin\keytool.exe"
 
 $WorkDir = "$env:TEMP\trupaintz-build"
 if (Test-Path $WorkDir) { Remove-Item -Recurse -Force $WorkDir }
-New-Item -ItemType Directory -Force -Path "$WorkDir\src\com\trupaintz\app" | Out-Null
+New-Item -ItemType Directory -Force -Path "$WorkDir\src\com\trupaintz\interiors" | Out-Null
 New-Item -ItemType Directory -Force -Path "$WorkDir\res\values" | Out-Null
 New-Item -ItemType Directory -Force -Path "$WorkDir\res\mipmap" | Out-Null
 New-Item -ItemType Directory -Force -Path "$WorkDir\assets" | Out-Null
@@ -64,7 +64,7 @@ Write-Utf8NoBom "$WorkDir\res\values\strings.xml" @"
 Write-Utf8NoBom "$WorkDir\AndroidManifest.xml" @"
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.trupaintz.app"
+    package="com.trupaintz.interiors"
     android:versionCode="250"
     android:versionName="2.5.0">
 
@@ -81,7 +81,7 @@ Write-Utf8NoBom "$WorkDir\AndroidManifest.xml" @"
         android:usesCleartextTraffic="true"
         android:hardwareAccelerated="true">
         <activity
-            android:name="com.trupaintz.app.MainActivity"
+            android:name="com.trupaintz.interiors.MainActivity"
             android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:windowSoftInputMode="adjustResize">
@@ -95,8 +95,8 @@ Write-Utf8NoBom "$WorkDir\AndroidManifest.xml" @"
 "@
 
 # Write MainActivity.java (Loads EXACT live website + local fallback)
-Write-Utf8NoBom "$WorkDir\src\com\trupaintz\app\MainActivity.java" @"
-package com.trupaintz.app;
+Write-Utf8NoBom "$WorkDir\src\com\trupaintz\interiors\MainActivity.java" @"
+package com.trupaintz.interiors;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -286,14 +286,11 @@ $AlignedApk = "$WorkDir\bin\app-aligned.apk"
 if (Test-Path $AlignedApk) { Remove-Item -Force $AlignedApk }
 & $ZIPALIGN -v -p 4 "$WorkDir\bin\app-unaligned.apk" $AlignedApk
 
-Write-Host "7. Signing APK with debug keystore..."
-$Keystore = "$WorkDir\debug.keystore"
-if (-not (Test-Path $Keystore)) {
-    & $KEYTOOL -genkey -v -keystore $Keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
-}
-
+Write-Host "7. Signing APK with permanent release keystore..."
+Copy-Item "$PSScriptRoot\keystore\trupaintz-release.keystore" "$WorkDir\trupaintz-release.keystore" -Force
+$Keystore = "$WorkDir\trupaintz-release.keystore"
 $SignedApk = "$WorkDir\bin\TruPaintz-Release-v2.5.0.apk"
-& $APKSIGNER sign --ks $Keystore --ks-pass pass:android --ks-key-alias androiddebugkey --key-pass pass:android --out $SignedApk $AlignedApk
+& $APKSIGNER sign --ks $Keystore --ks-pass pass:trupaintzpass --ks-key-alias trupaintzkey --key-pass pass:trupaintzpass --out $SignedApk $AlignedApk
 
 $FinalApk = "$OutputDir\TruPaintz-Release-v2.5.0.apk"
 Copy-Item $SignedApk $FinalApk -Force
