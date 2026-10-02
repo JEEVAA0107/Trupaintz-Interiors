@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowRight, Compass, ShieldCheck, Sparkles, Check, Instagram } from 'lucide-react';
+import { ArrowRight, Compass, ShieldCheck, Sparkles, Check, Instagram, Download, Smartphone } from 'lucide-react';
 import { BRAND_INFO } from '../data/mockData';
 
 interface HeroProps {
@@ -73,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
             </p>
 
             {/* CTAs */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5">
               <button
                 onClick={onOpenBooking}
                 className="group inline-flex items-center justify-center gap-2 rounded-lg bg-amber-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-amber-600/20 hover:bg-amber-500 transition-all focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-[0.98] whitespace-nowrap"
@@ -89,6 +89,19 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
                 <Compass className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 <span>Launch 3D Room Visualizer</span>
               </button>
+
+              <a
+                href="/downloads/TruPaintz-Release-v2.5.0.apk?v=250"
+                download="TruPaintz-Release-v2.5.0.apk"
+                className="group inline-flex items-center justify-center gap-2 rounded-lg border border-amber-500/60 bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/5 px-6 py-3.5 text-sm font-semibold text-amber-800 hover:bg-amber-500/20 transition-all dark:border-amber-500/40 dark:text-amber-300 dark:hover:bg-amber-500/20 whitespace-nowrap shadow-sm hover:shadow-md active:scale-[0.98]"
+                title="Download TruPaintz Mobile App (APK)"
+              >
+                <Download className="h-4 w-4 text-amber-600 dark:text-amber-400 transition-transform group-hover:-translate-y-0.5" />
+                <span>Download App</span>
+                <span className="rounded-full bg-amber-500/20 px-2 py-0.5 text-[11px] font-mono text-amber-700 dark:text-amber-300">
+                  APK
+                </span>
+              </a>
             </div>
 
             {/* Quantitative Proof Adjacency - Anti-slop tabular metrics */}
