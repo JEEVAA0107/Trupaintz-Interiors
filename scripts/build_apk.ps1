@@ -198,27 +198,66 @@ Write-Utf8NoBom "$WorkDir\src\com\trupaintz\app\MainActivity.java" @"
 package com.trupaintz.app;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebChromeClient;
-import android.graphics.Color;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 public class MainActivity extends Activity {
     private WebView webView;
+    private ProgressBar progressBar;
+    private ValueCallback<Uri[]> uploadMessage;
+    private final static int FILECHOOSER_RESULTCODE = 101;
+    private static final String APP_URL = "https://trupaintz-interiors.vercel.app";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        webView = new WebView(this);
-        setContentView(webView);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#0a0a0a"));
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                window.setNavigationBarColor(Color.parseColor("#0a0a0a"));
+            }
+        }
 
-        webView.setBackgroundColor(Color.parseColor("#0c0a09"));
+        FrameLayout layout = new FrameLayout(this);
+        layout.setBackgroundColor(Color.parseColor("#0a0a0a"));
+
+        webView = new WebView(this);
+        webView.setBackgroundColor(Color.parseColor("#0a0a0a"));
+
+        progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        progressBar.setMax(100);
+        progressBar.setProgress(0);
+        progressBar.setLayoutParams(new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                10
+        ));
+        progressBar.setVisibility(View.GONE);
+
+        layout.addView(webView, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+        ));
+        layout.addView(progressBar);
+
+        setContentView(layout);
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -228,13 +267,17 @@ public class MainActivity extends Activity {
         settings.setAllowContentAccess(true);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
+        settings.setMediaPlaybackRequiresUserGesture(false);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setUserAgentString(settings.getUserAgentString() + " TruPaintzApp/2.4.0");
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("tel:") || url.startsWith("mailto:") || url.startsWith("whatsapp:")) {
+                if (url == null) return false;
+                if (url.startsWith("tel:") || url.startsWith("mailto:") || url.startsWith("whatsapp:") || url.contains("wa.me") || url.contains("instagram.com")) {
                     try {
-                        android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
                         return true;
                     } catch (Exception e) {
@@ -244,12 +287,68 @@ public class MainActivity extends Activity {
                 view.loadUrl(url);
                 return true;
             }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                if (request.isForMainFrame()) {
+                    String offlineHtml = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1'>"
+                            + "<style>body{background:#0a0a0a;color:#fff;font-family:sans-serif;text-align:center;padding:60px 24px;}"
+                            + "h1{color:#f59e0b;font-size:24px;margin-bottom:12px;}"
+                            + "p{color:#a8a29e;font-size:14px;line-height:1.5;margin-bottom:30px;}"
+                            + "button{background:linear-gradient(135deg, #d97706, #b45309);color:#fff;border:none;padding:14px 28px;border-radius:12px;font-size:15px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(217,119,6,0.3);}"
+                            + "</style></head><body>"
+                            + "<h1>TruPaintz &amp; Interiors</h1>"
+                            + "<p>Unable to load the live website. Please check your mobile internet or Wi-Fi connection and tap retry.</p>"
+                            + "<button onclick='location.reload()'>&#8635; Retry Connection</button>"
+                            + "</body></html>";
+                    view.loadDataWithBaseURL(null, offlineHtml, "text/html", "UTF-8", null);
+                }
+            }
         });
 
-        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress < 100) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setProgress(newProgress);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
 
-        // Load bundled luxury mobile companion
-        webView.loadUrl("file:///android_asset/index.html");
+            @Override
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+                if (uploadMessage != null) {
+                    uploadMessage.onReceiveValue(null);
+                    uploadMessage = null;
+                }
+                uploadMessage = filePathCallback;
+                Intent intent = fileChooserParams.createIntent();
+                try {
+                    startActivityForResult(intent, FILECHOOSER_RESULTCODE);
+                } catch (Exception e) {
+                    uploadMessage = null;
+                    return false;
+                }
+                return true;
+            }
+        });
+
+        // Load the EXACT live TruPaintz website
+        webView.loadUrl(APP_URL);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == FILECHOOSER_RESULTCODE) {
+            if (uploadMessage == null) return;
+            uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));
+            uploadMessage = null;
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
