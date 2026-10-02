@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { useNotification } from '../context/NotificationContext';
-import { Sun, Moon, Bell, User, CheckCircle2, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Sun, Moon, Bell, User, CheckCircle2, Menu, X, ArrowUpRight, Smartphone, Download } from 'lucide-react';
 import { BRAND_INFO } from '../data/mockData';
 
 interface HeaderProps {
@@ -213,6 +213,17 @@ export const Header: React.FC<HeaderProps> = ({ activeView, setActiveView, onOpe
             </button>
           )}
 
+          {/* Quick APK Download in Header */}
+          <a
+            href="/downloads/TruPaintz-v2.4.0.apk"
+            download="TruPaintz-v2.4.0.apk"
+            className="hidden xl:inline-flex items-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-semibold text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 transition-colors"
+            title="Download TruPaintz Mobile App (Android APK v2.4.0)"
+          >
+            <Smartphone className="h-3.5 w-3.5 text-amber-500" />
+            <span>Get APK</span>
+          </a>
+
           {/* Primary CTA: Book Consultation */}
           <button
             onClick={onOpenBooking}
@@ -334,6 +345,19 @@ export const Header: React.FC<HeaderProps> = ({ activeView, setActiveView, onOpe
                   Sign In / Demo Login
                 </button>
               )}
+
+              {/* Mobile Drawer APK Download */}
+              <a
+                href="/downloads/TruPaintz-v2.4.0.apk"
+                download="TruPaintz-v2.4.0.apk"
+                className="flex items-center justify-between rounded-xl bg-amber-500/10 border border-amber-500/30 p-3 text-sm font-semibold text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  <Smartphone className="h-4 w-4" />
+                  <span>Download Android App (APK)</span>
+                </div>
+                <Download className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </div>

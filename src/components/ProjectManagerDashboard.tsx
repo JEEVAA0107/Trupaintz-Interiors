@@ -15,8 +15,10 @@ import {
   Plus, 
   FileText,
   Filter,
-  Check
+  Check,
+  Smartphone
 } from 'lucide-react';
+import { AppDownloadBanner } from './AppDownloadBanner';
 
 interface SiteProject {
   id: string;
@@ -165,6 +167,11 @@ export const ProjectManagerDashboard: React.FC<{ onBackToHome: () => void }> = (
             <span>Export Report (CSV)</span>
           </button>
         </div>
+      </div>
+
+      {/* Mobile App Download Card (Android APK) */}
+      <div className="mt-8">
+        <AppDownloadBanner />
       </div>
 
       {/* Quantitative Rigor Stats Row (Anti-Slop Tabular Numbers) */}

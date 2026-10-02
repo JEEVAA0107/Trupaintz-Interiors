@@ -31,8 +31,10 @@ import {
   PieChart,
   FolderLock,
   FileText,
-  Camera
+  Camera,
+  Smartphone
 } from 'lucide-react';
+import { AppDownloadBanner } from './AppDownloadBanner';
 
 export const ClientPortal: React.FC<{ onBackToHome: () => void }> = ({ onBackToHome }) => {
   const { user } = useAuth();
@@ -153,12 +155,29 @@ export const ClientPortal: React.FC<{ onBackToHome: () => void }> = ({ onBackToH
           </button>
 
           <button
+            onClick={() => {
+              const el = document.getElementById('app-download-box');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3.5 py-2 text-xs font-semibold text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 transition-colors"
+            title="Download TruPaintz Mobile APK"
+          >
+            <Smartphone className="h-3.5 w-3.5 text-amber-500" />
+            <span>Download Mobile App</span>
+          </button>
+
+          <button
             onClick={onBackToHome}
             className="rounded-lg border border-neutral-300 px-3.5 py-2 text-xs font-medium text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
           >
             Back to Site
           </button>
         </div>
+      </div>
+
+      {/* Mobile App Download Card (Android APK) */}
+      <div className="mt-8">
+        <AppDownloadBanner />
       </div>
 
       {/* Global Project Progress Bar - Aggregating all Milestone Statuses */}
