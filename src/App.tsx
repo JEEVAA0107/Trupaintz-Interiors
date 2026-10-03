@@ -47,7 +47,7 @@ function MainContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col interior-plaster-bg interior-stucco-texture text-neutral-900 transition-colors duration-200 dark:text-neutral-100 overflow-x-hidden max-w-[100vw]">
+    <div className="min-h-screen flex flex-col interior-plaster-bg interior-stucco-texture text-neutral-900 transition-colors duration-200 dark:text-neutral-100 overflow-x-clip w-full">
       {/* Top Bar Contract Navigation */}
       <Header
         activeView={activeView}

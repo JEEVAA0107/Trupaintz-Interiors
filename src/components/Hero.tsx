@@ -14,32 +14,6 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [activeLighting, setActiveLighting] = useState<'warm' | 'golden' | 'daylight'>('warm');
   const cardRef = useRef<HTMLDivElement>(null);
-  const ambientGlowRef = useRef<HTMLDivElement>(null);
-  const parallaxWrapperRef = useRef<HTMLDivElement>(null);
-
-  // High-performance scroll parallax directly on DOM nodes (0 React re-renders)
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const y = window.scrollY;
-          if (y < 900) {
-            if (ambientGlowRef.current) {
-              ambientGlowRef.current.style.transform = `translate3d(-50%, ${Math.min(y * 0.1, 50)}px, 0)`;
-            }
-            if (parallaxWrapperRef.current) {
-              parallaxWrapperRef.current.style.transform = `translate3d(0, ${Math.min(y * 0.05, 25)}px, 0)`;
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -60,13 +34,11 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
 
   return (
     <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
-      {/* Background Subtle Ambient Gradients with Parallax Drift */}
+      {/* Background Subtle Ambient Glow */}
       <div
-        ref={ambientGlowRef}
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[600px] w-[1000px] rounded-full opacity-20 blur-3xl dark:opacity-25 transition-transform duration-75 ease-out"
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[600px] w-[1000px] -translate-x-1/2 rounded-full opacity-20 blur-3xl dark:opacity-25"
         style={{
           background: 'radial-gradient(circle, rgba(217,119,6,0.25) 0%, rgba(180,83,9,0.08) 50%, transparent 80%)',
-          transform: 'translate3d(-50%, 0, 0)',
         }}
       />
 
@@ -169,12 +141,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
 
           </div>
 
-          {/* Right Column: 3D Perspective Interactive Showcase Card with Levitation & Scroll Parallax */}
-          <div 
-            ref={parallaxWrapperRef}
-            className="lg:col-span-6 flex justify-center perspective-1000 animate-float transition-transform duration-75 ease-out reveal-right is-revealed"
-            style={{ transform: 'translate3d(0, 0, 0)' }}
-          >
+          {/* Right Column: 3D Perspective Interactive Showcase Card */}
+          <div className="lg:col-span-6 flex justify-center perspective-1000 animate-float reveal-right is-revealed">
             <div
               ref={cardRef}
               onMouseMove={handleMouseMove}
