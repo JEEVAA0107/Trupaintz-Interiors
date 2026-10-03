@@ -34,7 +34,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
   const currentProject = filteredProjects[currentIndex] || filteredProjects[0];
 
   return (
-    <section id="portfolio" className="scroll-reveal py-24 overflow-hidden">
+    <section id="portfolio" className="scroll-reveal py-14 sm:py-24 overflow-hidden">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}

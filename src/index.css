@@ -31,11 +31,15 @@
     font-family: var(--font-sans);
     overflow-x: clip;
     width: 100%;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
     width: 100%;
     margin: 0;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* 3D and Perspective utilities */
@@ -251,9 +255,12 @@
 }
 
 .is-revealed .stagger-item,
-.stagger-item.is-revealed {
+.stagger-item.is-revealed,
+.is-revealed .reveal-left,
+.is-revealed .reveal-right,
+.is-revealed .reveal-scale {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* Stagger Sequential Delays */
@@ -264,13 +271,21 @@
 .stagger-5, .stagger-item:nth-child(5) { transition-delay: 200ms; }
 .stagger-6, .stagger-item:nth-child(6) { transition-delay: 240ms; }
 
-/* Responsive Mobile Safety: soften directional transforms to prevent horizontal scroll */
-@media (max-width: 640px) {
-  .reveal-left {
-    transform: translateX(-10px);
-  }
+/* Responsive Mobile Touch Safety */
+@media (max-width: 768px) {
+  /* On mobile phones, remove horizontal transforms to eliminate touch-scroll ambiguity */
+  .reveal-left,
   .reveal-right {
-    transform: translateX(10px);
+    transform: none;
+    transition-duration: 0.35s;
+  }
+  .scroll-reveal {
+    transform: translateY(8px);
+    transition-duration: 0.35s;
+  }
+  .stagger-item {
+    transform: translateY(8px);
+    transition-duration: 0.35s;
   }
 }
 

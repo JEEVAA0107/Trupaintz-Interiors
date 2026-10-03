@@ -17,6 +17,15 @@ export function useScrollReveal() {
       return;
     }
 
+    // Immediately reveal elements near or within initial viewport (prevent mobile first-swipe delay)
+    const initialCutoff = (window.innerHeight || 800) + 350;
+    document.querySelectorAll(`${selector}:not(.is-revealed)`).forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= initialCutoff) {
+        el.classList.add('is-revealed');
+      }
+    });
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (let i = 0; i < entries.length; i++) {
@@ -28,8 +37,9 @@ export function useScrollReveal() {
         }
       },
       {
-        threshold: 0.01,
-        rootMargin: '0px 0px 100px 0px',
+        threshold: 0,
+        // Trigger 250px before entering viewport so animations are already running smoothly
+        rootMargin: '250px 0px 250px 0px',
       }
     );
 
@@ -42,8 +52,8 @@ export function useScrollReveal() {
 
     observeAll();
 
-    // One secondary scan to catch any deferred components after initial layout
-    const timer = setTimeout(observeAll, 400);
+    // Secondary scan for any dynamically mounted elements
+    const timer = setTimeout(observeAll, 300);
 
     return () => {
       clearTimeout(timer);
