@@ -5,11 +5,40 @@
   :root {
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    
+    /* Interior Architectural Palette - Warm Travertine & Italian Limewash (Light) */
+    --bg-interior-base: #F8F5EE;
+    --bg-interior-surface: rgba(255, 255, 255, 0.85);
+    --bg-interior-card: rgba(255, 255, 255, 0.75);
+    --bg-interior-border: rgba(180, 140, 75, 0.16);
+    --cove-glow-primary: rgba(217, 119, 6, 0.08);
+    --cove-glow-gold: rgba(212, 175, 55, 0.06);
+    --grid-line-color: rgba(160, 125, 60, 0.05);
+  }
+
+  .dark {
+    /* Interior Architectural Palette - Nocturne Obsidian & 2700K Stucco (Dark) */
+    --bg-interior-base: #0B0D11;
+    --bg-interior-surface: rgba(20, 23, 29, 0.85);
+    --bg-interior-card: rgba(18, 21, 27, 0.75);
+    --bg-interior-border: rgba(212, 175, 55, 0.18);
+    --cove-glow-primary: rgba(217, 119, 6, 0.16);
+    --cove-glow-gold: rgba(212, 175, 55, 0.10);
+    --grid-line-color: rgba(255, 255, 255, 0.035);
   }
 
   html {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
   }
 
   /* 3D and Perspective utilities */
@@ -30,13 +59,45 @@
   }
 }
 
+/* Interior Architectural Plaster Canvas with Ambient Cove Lighting & Blueprint Grid */
+.interior-plaster-bg {
+  background-color: var(--bg-interior-base);
+  background-image: 
+    /* Ambient Ceiling Cove Illumination */
+    radial-gradient(ellipse 90% 45% at 50% -5%, var(--cove-glow-primary) 0%, transparent 70%),
+    /* Architectural Wall Wash Accents */
+    radial-gradient(circle 800px at 95% 20%, var(--cove-glow-gold) 0%, transparent 65%),
+    radial-gradient(circle 700px at 5% 65%, var(--cove-glow-primary) 0%, transparent 60%),
+    /* Subtle Architectural Elevation / Blueprint Grid (36px x 36px) */
+    linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+}
+
+/* Tactile Venetian Plaster Micro-Stipple Texture Overlay */
+.interior-stucco-texture {
+  position: relative;
+}
+.interior-stucco-texture::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+.dark .interior-stucco-texture::before {
+  opacity: 0.048;
+}
+
 /* Custom sleek scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(23, 23, 23, 0.5);
+  background: rgba(23, 23, 23, 0.2);
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(217, 119, 6, 0.4);
@@ -58,4 +119,78 @@
 
 .gold-border-glow {
   box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.15);
+}
+
+/* Fluid Micro-Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: floatGentle 4.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.shimmer-badge {
+  background: linear-gradient(90deg, rgba(217, 119, 6, 0.12) 0%, rgba(252, 231, 178, 0.4) 50%, rgba(217, 119, 6, 0.12) 100%);
+  background-size: 200% 100%;
+  animation: shimmerSweep 3.5s infinite linear;
 }

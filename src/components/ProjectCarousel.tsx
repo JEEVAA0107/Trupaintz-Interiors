@@ -35,7 +35,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
 
   return (
     <section id="portfolio" className="py-24 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10">
@@ -48,8 +48,8 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
             </h2>
           </div>
 
-          {/* Interactive Filter Tabs (Buttons allowed under frontend-design skill) */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800">
+          {/* Interactive Filter Tabs */}
+          <div className="flex flex-nowrap sm:flex-wrap items-center gap-1.5 p-1 bg-white/70 dark:bg-neutral-900/70 rounded-xl border border-neutral-200/80 dark:border-neutral-800 overflow-x-auto max-w-full">
             {[
               { id: 'all', label: 'All Works' },
               { id: 'living', label: 'Luxury Living' },
@@ -61,10 +61,10 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id as ProjectCategory)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                   activeCategory === cat.id
-                    ? 'bg-white text-neutral-900 shadow-sm dark:bg-neutral-800 dark:text-white'
-                    : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'
+                    ? 'bg-amber-600 text-white shadow-sm font-semibold'
+                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'
                 }`}
               >
                 {cat.label}
@@ -74,7 +74,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
         </div>
 
         {/* 3D Showcase Carousel Hero Frame */}
-        <div className="relative rounded-3xl border border-neutral-200/80 bg-neutral-100/70 p-4 sm:p-6 shadow-xl backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-900/40">
+        <div className="relative rounded-3xl border border-neutral-200/80 bg-white/70 p-3.5 sm:p-6 shadow-xl backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-900/60">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Visual Media Showcase with 3D Depth Card */}

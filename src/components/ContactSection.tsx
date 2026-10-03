@@ -62,8 +62,8 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 border-t border-neutral-200/80 dark:border-neutral-800/80">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
+      <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
@@ -88,7 +88,7 @@ export const ContactSection: React.FC = () => {
                 href={BRAND_INFO.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-amber-500 transition-colors group"
+                className="flex items-center justify-between p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md hover:border-amber-500 transition-colors group"
               >
                 <div className="flex items-center gap-3">
                   <div className="h-9 w-9 rounded-xl bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center shrink-0">

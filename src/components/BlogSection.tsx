@@ -7,8 +7,8 @@ export const BlogSection: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
 
   return (
-    <section id="journal" className="py-24 border-t border-neutral-200/80 dark:border-neutral-800/80">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="journal" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
+      <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12">
@@ -31,7 +31,7 @@ export const BlogSection: React.FC = () => {
           {BLOG_POSTS.map((post) => (
             <article
               key={post.id}
-              className="flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-sm transition-all hover:shadow-md dark:border-neutral-800/80 dark:bg-neutral-900 group"
+              className="flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-md transition-all hover:shadow-md dark:border-neutral-800/80 dark:bg-neutral-900/80 group"
             >
               <div>
                 {/* Media Image Container with 16:9 ratio */}

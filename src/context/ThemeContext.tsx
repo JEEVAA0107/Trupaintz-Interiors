@@ -4,6 +4,7 @@ type Theme = 'dark' | 'light';
 
 interface ThemeContextType {
   theme: Theme;
+  themeLabel: string;
   toggleTheme: () => void;
   setThemeMode: (mode: Theme) => void;
   isDark: boolean;
@@ -16,12 +17,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     try {
       const saved = localStorage.getItem('trupaintz_theme_mode');
       if (saved === 'dark' || saved === 'light') return saved;
-      // Default to day mode (light)
       return 'light';
     } catch {
       // Fallback
     }
-    return 'light'; // Default to Day mode
+    return 'light';
   });
 
   useEffect(() => {
@@ -39,14 +39,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.classList.add('dark');
       root.classList.remove('light');
       root.style.colorScheme = 'dark';
-      document.body.classList.remove('bg-neutral-50', 'text-neutral-900');
-      document.body.classList.add('bg-neutral-950', 'text-neutral-100');
+      document.body.classList.remove('bg-[#F8F5EE]', 'text-neutral-900');
+      document.body.classList.add('bg-[#0B0D11]', 'text-neutral-100');
     } else {
       root.classList.remove('dark');
       root.classList.add('light');
       root.style.colorScheme = 'light';
-      document.body.classList.remove('bg-neutral-950', 'text-neutral-100');
-      document.body.classList.add('bg-neutral-50', 'text-neutral-900');
+      document.body.classList.remove('bg-[#0B0D11]', 'text-neutral-100');
+      document.body.classList.add('bg-[#F8F5EE]', 'text-neutral-900');
     }
   }, [theme]);
 
@@ -58,8 +58,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setTheme(mode);
   };
 
+  const themeLabel = theme === 'dark' ? 'Dark Obsidian Stucco' : 'Warm Travertine Plaster';
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setThemeMode, isDark: theme === 'dark' }}>
+    <ThemeContext.Provider value={{ theme, themeLabel, toggleTheme, setThemeMode, isDark: theme === 'dark' }}>
       {children}
     </ThemeContext.Provider>
   );

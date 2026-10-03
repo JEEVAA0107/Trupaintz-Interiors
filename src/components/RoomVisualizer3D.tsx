@@ -14,8 +14,8 @@ export const RoomVisualizer3D: React.FC<RoomVisualizer3DProps> = ({ onSelectPale
   const [showTextureBump, setShowTextureBump] = useState(true);
 
   return (
-    <section id="visualizer" className="relative py-20 bg-neutral-100/70 dark:bg-black/60 border-y border-neutral-200/60 dark:border-neutral-800/80">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="visualizer" className="relative py-20 bg-amber-950/[0.02] dark:bg-black/40 border-y border-amber-900/10 dark:border-neutral-800/80">
+      <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12">
@@ -40,8 +40,8 @@ export const RoomVisualizer3D: React.FC<RoomVisualizer3DProps> = ({ onSelectPale
           <div className="lg:col-span-8 overflow-hidden rounded-2xl border border-neutral-300 dark:border-neutral-800 bg-neutral-950 shadow-2xl relative">
             
             {/* Top Toolbar */}
-            <div className="flex items-center justify-between border-b border-neutral-800/80 px-4 py-3 bg-neutral-900/80 backdrop-blur-md">
-              <div className="flex items-center gap-2 text-xs text-neutral-300">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-800/80 px-3 sm:px-4 py-3 bg-neutral-900/80 backdrop-blur-md">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-neutral-300">
                 <span className="font-semibold text-white">{selectedSwatch.name}</span>
                 <span className="text-neutral-500">·</span>
                 <span className="capitalize text-amber-400">{textureType} Finish</span>

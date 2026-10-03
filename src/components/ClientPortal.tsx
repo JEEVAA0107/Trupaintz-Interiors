@@ -78,7 +78,7 @@ export const ClientPortal: React.FC<{ onBackToHome: () => void }> = ({ onBackToH
   };
 
   return (
-    <div className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="py-10 px-4 sm:px-6 lg:px-10 xl:px-12 max-w-screen-2xl w-full mx-auto">
       
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-neutral-200 dark:border-neutral-800">

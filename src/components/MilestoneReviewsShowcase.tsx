@@ -21,8 +21,8 @@ export const MilestoneReviewsShowcase: React.FC<MilestoneReviewsShowcaseProps> =
   });
 
   return (
-    <section id="reviews" className="py-24 border-t border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-100/60 dark:bg-neutral-900/40">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="reviews" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-amber-950/[0.015] dark:bg-neutral-900/30">
+      <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12">
@@ -37,7 +37,7 @@ export const MilestoneReviewsShowcase: React.FC<MilestoneReviewsShowcaseProps> =
           </div>
 
           {/* Social Proof Metric Cluster */}
-          <div className="flex items-center gap-4 bg-white dark:bg-neutral-900 px-5 py-3 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm">
+          <div className="flex items-center gap-4 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md px-5 py-3 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm">
             <div className="flex items-center gap-1 text-amber-400">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="h-4 w-4 fill-current" />

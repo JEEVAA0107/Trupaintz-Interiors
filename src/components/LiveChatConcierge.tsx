@@ -100,16 +100,16 @@ export const LiveChatConcierge: React.FC<{ onNavigateToBooking: () => void }> = 
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
       
       {/* Floating Toggle Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group flex items-center gap-2 rounded-full bg-amber-600 px-4 py-3 text-white shadow-2xl hover:bg-amber-500 transition-all hover:scale-105 focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-95"
+          className="group flex items-center gap-2 rounded-full bg-amber-600 px-3.5 py-2.5 sm:px-4 sm:py-3 text-white shadow-2xl hover:bg-amber-500 transition-all hover:scale-105 focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-95"
           aria-label="Open Live Design Concierge"
         >
-          <MessageSquare className="h-5 w-5" />
+          <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5" />
           <span className="text-xs font-semibold tracking-wide">Design Concierge</span>
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-200 opacity-75" />
@@ -120,7 +120,7 @@ export const LiveChatConcierge: React.FC<{ onNavigateToBooking: () => void }> = 
 
       {/* Floating Chat Modal */}
       {isOpen && (
-        <div className="w-[360px] sm:w-[400px] h-[520px] rounded-2xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 shadow-2xl flex flex-col overflow-hidden">
+        <div className="w-[calc(100vw-2rem)] sm:w-[380px] max-h-[82vh] h-[500px] rounded-2xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 shadow-2xl flex flex-col overflow-hidden">
           
           {/* Header */}
           <div className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 px-4 py-3.5 bg-neutral-900 text-white">

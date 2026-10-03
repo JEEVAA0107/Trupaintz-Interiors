@@ -11,8 +11,8 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
   const [activeModalService, setActiveModalService] = useState<ServiceItem | null>(null);
 
   return (
-    <section id="services" className="py-24 border-t border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-50/50 dark:bg-neutral-950/50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-transparent">
+      <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-14">
@@ -30,7 +30,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           
           {/* Card 1: Italian Texture & Stucco (Featured Large Bento Card, Col-Span 8) */}
-          <div className="md:col-span-8 rounded-3xl border border-neutral-200/80 bg-white p-6 sm:p-8 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between relative overflow-hidden group">
+          <div className="md:col-span-8 rounded-3xl border border-neutral-200/80 bg-white/80 p-6 sm:p-8 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 flex flex-col justify-between relative overflow-hidden group">
             <div className="relative z-10">
               <div className="flex items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[0].highlightTag}</span>

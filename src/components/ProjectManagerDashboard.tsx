@@ -135,7 +135,7 @@ export const ProjectManagerDashboard: React.FC<{ onBackToHome: () => void }> = (
   const totalPipeline = sites.reduce((sum, s) => sum + s.value, 0);
 
   return (
-    <div className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div className="py-10 px-4 sm:px-6 lg:px-10 xl:px-12 max-w-screen-2xl w-full mx-auto">
       
       {/* Top Banner Navigation & Export Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-neutral-200 dark:border-neutral-800">

@@ -105,8 +105,8 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
   };
 
   return (
-    <section id="estimator" className="py-24 bg-neutral-100/70 dark:bg-neutral-900/40 border-t border-neutral-200/80 dark:border-neutral-800/80">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="estimator" className="py-24 bg-amber-950/[0.015] dark:bg-neutral-950/40 border-t border-amber-900/10 dark:border-neutral-800/80">
+      <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12">
@@ -125,7 +125,7 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
         </div>
 
         {/* Multi-Step Card */}
-        <div className="rounded-3xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 shadow-xl overflow-hidden">
+        <div className="rounded-3xl border border-neutral-200/80 bg-white/80 dark:border-neutral-800/80 dark:bg-neutral-900/80 backdrop-blur-xl shadow-xl overflow-hidden">
           
           {/* Step Progress Indicator Bar */}
           <div className="border-b border-neutral-100 dark:border-neutral-800 px-6 py-4 flex items-center justify-between bg-neutral-50/50 dark:bg-neutral-950/40">
@@ -237,7 +237,7 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
                     <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 mb-2">
                       Craftsmanship &amp; Finish Tier
                     </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       {[
                         { id: 'ultra', name: 'Ultra-Premium', sub: 'Royale Aspira & Silk' },
                         { id: 'luxury', name: 'Royal Stucco', sub: 'Imported Venetian Lime' },
@@ -253,7 +253,7 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
                               : 'border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300'
                           }`}
                         >
-                          <span className="text-xs block">{t.name}</span>
+                          <span className="text-xs font-semibold block">{t.name}</span>
                           <span className="text-[10px] text-neutral-400 mt-0.5 block">{t.sub}</span>
                         </button>
                       ))}

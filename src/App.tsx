@@ -17,12 +17,14 @@ import { ClientPortal } from './components/ClientPortal';
 import { LiveChatConcierge } from './components/LiveChatConcierge';
 import { AuthModal } from './components/AuthModal';
 import { EmailModal } from './components/EmailModal';
+import { AppDownloadModal } from './components/AppDownloadModal';
 import { Footer } from './components/Footer';
 
 function MainContent() {
   const { user } = useAuth();
   const [activeView, setActiveView] = useState<'home' | 'portal' | 'dashboard'>('home');
   const [selectedServiceForEstimator, setSelectedServiceForEstimator] = useState<string>('Italian Stucco + Premium Painting');
+  const [isAppDownloadModalOpen, setIsAppDownloadModalOpen] = useState(false);
 
   const scrollTo = (id: string) => {
     setActiveView('home');
@@ -43,12 +45,13 @@ function MainContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-50 text-neutral-900 transition-colors duration-200 dark:bg-neutral-950 dark:text-neutral-100">
+    <div className="min-h-screen flex flex-col interior-plaster-bg interior-stucco-texture text-neutral-900 transition-colors duration-200 dark:text-neutral-100 overflow-x-hidden max-w-[100vw]">
       {/* Top Bar Contract Navigation */}
       <Header
         activeView={activeView}
         setActiveView={setActiveView}
         onOpenBooking={() => scrollTo('estimator')}
+        onOpenAppDownload={() => setIsAppDownloadModalOpen(true)}
       />
 
       <main className="flex-1">
@@ -63,6 +66,7 @@ function MainContent() {
               onExploreProjects={() => scrollTo('portfolio')}
               onOpenBooking={() => scrollTo('estimator')}
               onOpenVisualizer={() => scrollTo('visualizer')}
+              onOpenAppDownload={() => setIsAppDownloadModalOpen(true)}
             />
 
 
@@ -104,6 +108,10 @@ function MainContent() {
       {/* Modals */}
       <AuthModal />
       <EmailModal />
+      <AppDownloadModal
+        isOpen={isAppDownloadModalOpen}
+        onClose={() => setIsAppDownloadModalOpen(false)}
+      />
     </div>
   );
 }
