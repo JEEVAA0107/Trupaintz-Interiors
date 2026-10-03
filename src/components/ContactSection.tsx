@@ -62,7 +62,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
+    <section id="contact" className="scroll-reveal py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -134,7 +134,7 @@ export const ContactSection: React.FC = () => {
           </div>
 
           {/* Right Column: Inquiry Contact Form */}
-          <div className="lg:col-span-7 rounded-3xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-10 shadow-xl">
+          <div className="card-hover-lift lg:col-span-7 rounded-3xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-10 shadow-xl">
             <h3 className="font-display text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white">
               Send a Direct Project Brief
             </h3>

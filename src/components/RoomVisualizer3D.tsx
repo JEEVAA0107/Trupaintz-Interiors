@@ -14,7 +14,7 @@ export const RoomVisualizer3D: React.FC<RoomVisualizer3DProps> = ({ onSelectPale
   const [showTextureBump, setShowTextureBump] = useState(true);
 
   return (
-    <section id="visualizer" className="relative py-20 bg-amber-950/[0.02] dark:bg-black/40 border-y border-amber-900/10 dark:border-neutral-800/80">
+    <section id="visualizer" className="scroll-reveal relative py-20 bg-amber-950/[0.02] dark:bg-black/40 border-y border-amber-900/10 dark:border-neutral-800/80">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}

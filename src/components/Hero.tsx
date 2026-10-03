@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight, Compass, ShieldCheck, Sparkles, Check, Instagram, Download, Smartphone } from 'lucide-react';
 import { BRAND_INFO } from '../data/mockData';
+import { AnimatedCounter } from './AnimatedCounter';
 
 interface HeroProps {
   onExploreProjects: () => void;
@@ -12,7 +13,24 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, onOpenVisualizer, onOpenAppDownload }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [activeLighting, setActiveLighting] = useState<'warm' | 'golden' | 'daylight'>('warm');
+  const [scrollY, setScrollY] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Subtle scroll parallax
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -22,8 +40,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     // Calculate subtle 3D tilt angles
-    const rotateY = ((x - centerX) / centerX) * 8; // -8 to 8 deg
-    const rotateX = -((y - centerY) / centerY) * 8; // -8 to 8 deg
+    const rotateY = ((x - centerX) / centerX) * 7; // -7 to 7 deg
+    const rotateX = -((y - centerY) / centerY) * 7; // -7 to 7 deg
     setTilt({ x: rotateX, y: rotateY });
   };
 
@@ -33,11 +51,12 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
 
   return (
     <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
-      {/* Background Subtle Ambient Gradients */}
+      {/* Background Subtle Ambient Gradients with Parallax Drift */}
       <div
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[600px] w-[1000px] -translate-x-1/2 rounded-full opacity-20 blur-3xl dark:opacity-25"
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[600px] w-[1000px] rounded-full opacity-20 blur-3xl dark:opacity-25 transition-transform duration-75 ease-out"
         style={{
           background: 'radial-gradient(circle, rgba(217,119,6,0.25) 0%, rgba(180,83,9,0.08) 50%, transparent 80%)',
+          transform: `translate(-50%, ${Math.min(scrollY * 0.12, 60)}px)`,
         }}
       />
 
@@ -79,7 +98,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
               <button
                 onClick={onOpenBooking}
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-amber-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-amber-600/20 hover:bg-amber-500 transition-all focus-visible:ring-2 focus-visible:ring-amber-500 active:scale-[0.98] whitespace-nowrap"
+                className="btn-premium group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-amber-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-amber-600/20 hover:bg-amber-500 active:scale-[0.98] whitespace-nowrap cursor-pointer"
               >
                 <span>Book Site Consultation</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -87,7 +106,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
 
               <button
                 onClick={onOpenVisualizer}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-300/80 bg-white/80 dark:bg-neutral-900/80 px-6 py-3.5 text-sm font-medium text-neutral-800 hover:bg-neutral-100 transition-colors dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800 whitespace-nowrap"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-300/80 bg-white/80 dark:bg-neutral-900/80 px-6 py-3.5 text-sm font-medium text-neutral-800 hover:bg-neutral-100 hover:border-amber-500/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800 whitespace-nowrap cursor-pointer"
               >
                 <Compass className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 <span>Launch 3D Room Visualizer</span>
@@ -97,7 +116,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
               <button
                 onClick={onOpenAppDownload}
                 type="button"
-                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-amber-500/60 bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/5 px-6 py-3.5 text-sm font-semibold text-amber-800 hover:bg-amber-500/20 transition-all dark:border-amber-500/40 dark:text-amber-300 dark:hover:bg-amber-500/20 whitespace-nowrap shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-amber-500/60 bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/5 px-6 py-3.5 text-sm font-semibold text-amber-800 hover:bg-amber-500/20 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 dark:border-amber-500/40 dark:text-amber-300 dark:hover:bg-amber-500/20 whitespace-nowrap cursor-pointer"
                 title="Explore & Download TruPaintz Companion Mobile App"
               >
                 <Download className="h-4 w-4 text-amber-600 dark:text-amber-400 transition-transform group-hover:-translate-y-0.5" />
@@ -108,12 +127,12 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
               </button>
             </div>
 
-            {/* Quantitative Proof Adjacency - Anti-slop tabular metrics */}
+            {/* Quantitative Proof Adjacency - Smooth Counter Animations */}
             <div className="mt-10 sm:mt-12 border-t border-amber-900/10 dark:border-neutral-800 pt-7">
               <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center sm:text-left">
                 <div>
                   <p className="font-mono text-xl sm:text-3xl font-bold text-neutral-950 dark:text-white tabular-nums">
-                    340+
+                    <AnimatedCounter end={340} suffix="+" duration={1800} />
                   </p>
                   <p className="text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-snug">
                     Homes Handed Over
@@ -121,7 +140,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
                 </div>
                 <div>
                   <p className="font-mono text-xl sm:text-3xl font-bold text-neutral-950 dark:text-white tabular-nums">
-                    10-Yr
+                    <AnimatedCounter end={10} suffix="-Yr" duration={1400} />
                   </p>
                   <p className="text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-snug">
                     Adhesion Guarantee
@@ -129,7 +148,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
                 </div>
                 <div>
                   <p className="font-mono text-xl sm:text-3xl font-bold text-neutral-950 dark:text-white tabular-nums">
-                    99%
+                    <AnimatedCounter end={99} suffix="%" duration={1600} />
                   </p>
                   <p className="text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-snug">
                     Dustless Mechanized
@@ -140,8 +159,11 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
 
           </div>
 
-          {/* Right Column: 3D Perspective Interactive Showcase Card with Levitation */}
-          <div className="lg:col-span-6 flex justify-center perspective-1000 animate-float">
+          {/* Right Column: 3D Perspective Interactive Showcase Card with Levitation & Scroll Parallax */}
+          <div 
+            className="lg:col-span-6 flex justify-center perspective-1000 animate-float transition-transform duration-75 ease-out"
+            style={{ transform: `translateY(${Math.min(scrollY * 0.05, 30)}px)` }}
+          >
             <div
               ref={cardRef}
               onMouseMove={handleMouseMove}
@@ -158,7 +180,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
                   src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"
                   alt="TruPaintz Luxury Living Room with Italian Stucco and Ambient Cove Lighting"
                   referrerPolicy="no-referrer"
-                  className={`h-full w-full object-cover transition-all duration-700 ${
+                  className={`h-full w-full object-cover transition-all duration-700 animate-slow-zoom ${
                     activeLighting === 'warm'
                       ? 'brightness-105 contrast-105 filter'
                       : activeLighting === 'golden'

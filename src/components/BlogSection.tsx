@@ -7,7 +7,7 @@ export const BlogSection: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
 
   return (
-    <section id="journal" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
+    <section id="journal" className="scroll-reveal py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
@@ -31,7 +31,7 @@ export const BlogSection: React.FC = () => {
           {BLOG_POSTS.map((post) => (
             <article
               key={post.id}
-              className="flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-md transition-all hover:shadow-md dark:border-neutral-800/80 dark:bg-neutral-900/80 group"
+              className="card-hover-lift flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 group"
             >
               <div>
                 {/* Media Image Container with 16:9 ratio */}
@@ -40,7 +40,7 @@ export const BlogSection: React.FC = () => {
                     src={post.image}
                     alt={post.title}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover img-hover-zoom transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
 

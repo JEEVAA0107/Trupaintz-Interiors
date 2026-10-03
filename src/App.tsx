@@ -19,9 +19,11 @@ import { AuthModal } from './components/AuthModal';
 import { EmailModal } from './components/EmailModal';
 import { AppDownloadModal } from './components/AppDownloadModal';
 import { Footer } from './components/Footer';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 function MainContent() {
   const { user } = useAuth();
+  useScrollReveal();
   const [activeView, setActiveView] = useState<'home' | 'portal' | 'dashboard'>('home');
   const [selectedServiceForEstimator, setSelectedServiceForEstimator] = useState<string>('Italian Stucco + Premium Painting');
   const [isAppDownloadModalOpen, setIsAppDownloadModalOpen] = useState(false);

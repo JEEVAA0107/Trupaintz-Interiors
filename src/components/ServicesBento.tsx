@@ -11,7 +11,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
   const [activeModalService, setActiveModalService] = useState<ServiceItem | null>(null);
 
   return (
-    <section id="services" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-transparent">
+    <section id="services" className="scroll-reveal py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-transparent">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
@@ -30,7 +30,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           
           {/* Card 1: Italian Texture & Stucco (Featured Large Bento Card, Col-Span 8) */}
-          <div className="md:col-span-8 rounded-3xl border border-neutral-200/80 bg-white/80 p-6 sm:p-8 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 flex flex-col justify-between relative overflow-hidden group">
+          <div className="card-hover-lift md:col-span-8 rounded-3xl border border-neutral-200/80 bg-white/80 p-6 sm:p-8 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 flex flex-col justify-between relative overflow-hidden group">
             <div className="relative z-10">
               <div className="flex items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[0].highlightTag}</span>
@@ -66,7 +66,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
 
               <button
                 onClick={() => onSelectService(SERVICES_DATA[0].title)}
-                className="rounded-lg bg-amber-600 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-500 transition-colors"
+                className="btn-premium rounded-lg bg-amber-600 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-500 transition-colors cursor-pointer"
               >
                 Inquire Service
               </button>
@@ -74,7 +74,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 2: Modular Kitchens & Joinery (Col-Span 4) */}
-          <div className="md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between group">
+          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[1].highlightTag}</span>
@@ -112,7 +112,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 3: Dustless Residential Painting (Col-Span 4) */}
-          <div className="md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
+          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[2].highlightTag}</span>
@@ -141,7 +141,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 4: False Ceilings & Lighting (Col-Span 4) */}
-          <div className="md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
+          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[3].highlightTag}</span>
@@ -170,7 +170,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 5: Waterproofing & Barrier (Col-Span 4) */}
-          <div className="md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
+          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[4].highlightTag}</span>

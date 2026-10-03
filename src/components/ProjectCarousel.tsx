@@ -34,7 +34,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
   const currentProject = filteredProjects[currentIndex] || filteredProjects[0];
 
   return (
-    <section id="portfolio" className="py-24 overflow-hidden">
+    <section id="portfolio" className="scroll-reveal py-24 overflow-hidden">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
@@ -61,10 +61,10 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id as ProjectCategory)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                   activeCategory === cat.id
                     ? 'bg-amber-600 text-white shadow-sm font-semibold'
-                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white'
+                    : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200/60 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800/60'
                 }`}
               >
                 {cat.label}
@@ -74,7 +74,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
         </div>
 
         {/* 3D Showcase Carousel Hero Frame */}
-        <div className="relative rounded-3xl border border-neutral-200/80 bg-white/70 p-3.5 sm:p-6 shadow-xl backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-900/60">
+        <div className="card-hover-lift relative rounded-3xl border border-neutral-200/80 bg-white/70 p-3.5 sm:p-6 shadow-xl backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-900/60">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Visual Media Showcase with 3D Depth Card */}
@@ -135,7 +135,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
                     src={currentProject.image}
                     alt={currentProject.title}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover img-hover-zoom transition-transform duration-700 group-hover:scale-105"
                   />
                 )}
 
@@ -241,7 +241,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
               <div className="mt-8 pt-4 border-t border-neutral-200/80 dark:border-neutral-800/80 flex items-center justify-between gap-4">
                 <button
                   onClick={() => onSelectProjectForConsultation(currentProject.title)}
-                  className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors dark:bg-amber-600 dark:hover:bg-amber-500 whitespace-nowrap"
+                  className="btn-premium inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-neutral-800 transition-colors dark:bg-amber-600 dark:hover:bg-amber-500 whitespace-nowrap cursor-pointer"
                 >
                   <span>Book This Look</span>
                   <ArrowRight className="h-3.5 w-3.5" />

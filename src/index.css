@@ -194,3 +194,109 @@
   background-size: 200% 100%;
   animation: shimmerSweep 3.5s infinite linear;
 }
+
+/* Slow Ken Burns Zoom Effect for Hero Image */
+@keyframes heroSlowZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-slow-zoom {
+  animation: heroSlowZoom 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Silky Smooth Scroll Reveal Animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle Card Lift on Hover */
+.card-hover-lift {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px -8px rgba(180, 140, 75, 0.14), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
+}
+
+.dark .card-hover-lift:hover {
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+/* Luxury Image Hover Zoom */
+.img-hover-zoom {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.group:hover .img-hover-zoom {
+  transform: scale(1.05);
+}
+
+/* Animated Navbar Underline */
+.nav-link-animated {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.nav-link-animated::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d97706, #d4af37);
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link-animated:hover::after {
+  width: 100%;
+}
+
+/* Premium Button Hover Ripple/Shimmer */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -5px rgba(217, 119, 6, 0.35);
+}
+
+.btn-premium:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

@@ -105,7 +105,7 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
   };
 
   return (
-    <section id="estimator" className="py-24 bg-amber-950/[0.015] dark:bg-neutral-950/40 border-t border-amber-900/10 dark:border-neutral-800/80">
+    <section id="estimator" className="scroll-reveal py-24 bg-amber-950/[0.015] dark:bg-neutral-950/40 border-t border-amber-900/10 dark:border-neutral-800/80">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
@@ -125,7 +125,7 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
         </div>
 
         {/* Multi-Step Card */}
-        <div className="rounded-3xl border border-neutral-200/80 bg-white/80 dark:border-neutral-800/80 dark:bg-neutral-900/80 backdrop-blur-xl shadow-xl overflow-hidden">
+        <div className="card-hover-lift rounded-3xl border border-neutral-200/80 bg-white/80 dark:border-neutral-800/80 dark:bg-neutral-900/80 backdrop-blur-xl shadow-xl overflow-hidden">
           
           {/* Step Progress Indicator Bar */}
           <div className="border-b border-neutral-100 dark:border-neutral-800 px-6 py-4 flex items-center justify-between bg-neutral-50/50 dark:bg-neutral-950/40">

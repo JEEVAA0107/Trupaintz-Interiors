@@ -92,22 +92,22 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
 
         {/* Zone 2: Navigation Links (Desktop - 3 Core Direct Links + Explore Dropdown) */}
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm font-medium tracking-wide text-neutral-600 dark:text-neutral-300">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium tracking-wide text-neutral-600 dark:text-neutral-300">
           <button
             onClick={() => handleNavClick('portfolio')}
-            className="hover:text-neutral-900 hover:underline hover:decoration-amber-500 hover:underline-offset-8 transition-colors dark:hover:text-white whitespace-nowrap"
+            className="nav-link-animated hover:text-neutral-900 transition-colors dark:hover:text-white whitespace-nowrap py-1 cursor-pointer"
           >
             Portfolio
           </button>
           <button
             onClick={() => handleNavClick('visualizer')}
-            className="hover:text-neutral-900 hover:underline hover:decoration-amber-500 hover:underline-offset-8 transition-colors dark:hover:text-white whitespace-nowrap"
+            className="nav-link-animated hover:text-neutral-900 transition-colors dark:hover:text-white whitespace-nowrap py-1 cursor-pointer"
           >
             3D Studio
           </button>
           <button
             onClick={() => handleNavClick('services')}
-            className="hover:text-neutral-900 hover:underline hover:decoration-amber-500 hover:underline-offset-8 transition-colors dark:hover:text-white whitespace-nowrap"
+            className="nav-link-animated hover:text-neutral-900 transition-colors dark:hover:text-white whitespace-nowrap py-1 cursor-pointer"
           >
             Services
           </button>
@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="relative" ref={exploreRef}>
             <button
               onClick={() => setIsExploreOpen(!isExploreOpen)}
-              className="flex items-center gap-1.5 py-1 text-neutral-700 hover:text-amber-600 transition-colors dark:text-neutral-300 dark:hover:text-amber-400 whitespace-nowrap font-medium cursor-pointer"
+              className="nav-link-animated flex items-center gap-1.5 py-1 text-neutral-700 hover:text-amber-600 transition-colors dark:text-neutral-300 dark:hover:text-amber-400 whitespace-nowrap font-medium cursor-pointer"
             >
               <span>Explore</span>
               <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${isExploreOpen ? 'rotate-180 text-amber-600' : ''}`} />
@@ -383,7 +383,7 @@ export const Header: React.FC<HeaderProps> = ({
           ) : (
             <button
               onClick={() => setIsAuthModalOpen(true)}
-              className="flex items-center gap-1.5 rounded-lg border border-neutral-200/90 bg-white/80 h-9 sm:h-10 px-2 sm:px-3 text-xs font-medium text-neutral-800 hover:bg-neutral-100 transition-colors dark:border-neutral-800 dark:bg-neutral-900/80 dark:text-neutral-200 dark:hover:bg-neutral-800"
+              className="flex items-center gap-1.5 rounded-lg border border-neutral-200/90 bg-white/80 h-9 sm:h-10 px-2 sm:px-3 text-xs font-medium text-neutral-800 hover:bg-neutral-100 hover:border-amber-500/50 hover:shadow-sm active:scale-[0.98] transition-all dark:border-neutral-800 dark:bg-neutral-900/80 dark:text-neutral-200 dark:hover:bg-neutral-800 cursor-pointer"
               title="Portal Login"
             >
               <User className="h-4 w-4 sm:h-3.5 sm:w-3.5 shrink-0" />
@@ -394,7 +394,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Primary CTA: Book Consultation (Desktop & Tablet - always fits, never cut off) */}
           <button
             onClick={onOpenBooking}
-            className="hidden sm:inline-flex items-center justify-center rounded-lg bg-amber-600 px-3.5 sm:px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-amber-500 transition-all focus-visible:ring-2 focus-visible:ring-amber-500 whitespace-nowrap active:scale-[0.98] shrink-0"
+            className="btn-premium hidden sm:inline-flex items-center justify-center rounded-lg bg-amber-600 px-3.5 sm:px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-amber-500 transition-all focus-visible:ring-2 focus-visible:ring-amber-500 whitespace-nowrap active:scale-[0.98] shrink-0 cursor-pointer"
           >
             Book Consultation
           </button>

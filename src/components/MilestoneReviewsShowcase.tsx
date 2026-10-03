@@ -21,7 +21,7 @@ export const MilestoneReviewsShowcase: React.FC<MilestoneReviewsShowcaseProps> =
   });
 
   return (
-    <section id="reviews" className="py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-amber-950/[0.015] dark:bg-neutral-900/30">
+    <section id="reviews" className="scroll-reveal py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-amber-950/[0.015] dark:bg-neutral-900/30">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
@@ -92,7 +92,7 @@ export const MilestoneReviewsShowcase: React.FC<MilestoneReviewsShowcaseProps> =
           {filteredReviews.map((rev) => (
             <div
               key={rev.id}
-              className="rounded-2xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-7 shadow-sm flex flex-col justify-between"
+              className="card-hover-lift rounded-2xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-7 shadow-sm flex flex-col justify-between"
             >
               <div>
                 {/* Clean Unboxed Metadata */}
