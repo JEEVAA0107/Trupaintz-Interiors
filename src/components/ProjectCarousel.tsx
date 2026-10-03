@@ -78,7 +78,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Visual Media Showcase with 3D Depth Card */}
-            <div className="lg:col-span-7 relative group">
+            <div className="lg:col-span-7 relative group reveal-left">
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-neutral-950 shadow-2xl">
                 
                 {/* Before / After Mode or Standard Photo */}
@@ -178,7 +178,7 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
             </div>
 
             {/* Project Details Description & Metadata */}
-            <div className="lg:col-span-5 flex flex-col justify-between h-full">
+            <div className="lg:col-span-5 flex flex-col justify-between h-full reveal-right">
               <div>
                 {/* Clean Unboxed Metadata */}
                 <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
@@ -303,12 +303,12 @@ export const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ onSelectProjec
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               {selectedProject.gallery.map((img, idx) => (
-                <div key={idx} className="aspect-[4/3] rounded-xl overflow-hidden bg-neutral-950">
+                <div key={idx} className="card-hover-lift aspect-[4/3] rounded-xl overflow-hidden bg-neutral-950 group">
                   <img
                     src={img}
                     alt={`${selectedProject.title} - View ${idx + 1}`}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover img-hover-zoom transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               ))}

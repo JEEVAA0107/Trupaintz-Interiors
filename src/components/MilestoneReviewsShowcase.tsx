@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useReviews } from '../context/ReviewsContext';
 import { Star, ShieldCheck, CheckCircle2, MessageSquare, ArrowRight, Sparkles } from 'lucide-react';
+import { AnimatedCounter } from './AnimatedCounter';
 
 interface MilestoneReviewsShowcaseProps {
   onOpenClientPortal: () => void;
@@ -44,11 +45,12 @@ export const MilestoneReviewsShowcase: React.FC<MilestoneReviewsShowcaseProps> =
               ))}
             </div>
             <div className="border-l border-neutral-200 dark:border-neutral-800 pl-4">
-              <span className="font-mono text-base font-bold text-neutral-950 dark:text-white tabular-nums">
-                {averageRating} / 5.0
+              <span className="font-mono text-base font-bold text-neutral-950 dark:text-white tabular-nums flex items-baseline gap-1">
+                <AnimatedCounter end={averageRating} decimals={1} />
+                <span>/ 5.0</span>
               </span>
               <span className="text-[11px] text-neutral-500 block">
-                {totalReviews} Verified Inspections
+                <AnimatedCounter end={totalReviews} suffix=" Verified Inspections" />
               </span>
             </div>
           </div>
@@ -88,11 +90,11 @@ export const MilestoneReviewsShowcase: React.FC<MilestoneReviewsShowcaseProps> =
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredReviews.map((rev) => (
             <div
               key={rev.id}
-              className="card-hover-lift rounded-2xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-7 shadow-sm flex flex-col justify-between"
+              className="stagger-item card-hover-lift rounded-2xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-7 shadow-sm flex flex-col justify-between"
             >
               <div>
                 {/* Clean Unboxed Metadata */}

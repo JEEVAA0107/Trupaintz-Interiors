@@ -68,7 +68,7 @@ export const ContactSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Column: Studio Details & Instagram Link */}
-          <div className="lg:col-span-5 space-y-8">
+          <div className="reveal-left lg:col-span-5 space-y-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-500">
                 <Mail className="h-3.5 w-3.5" />
@@ -88,7 +88,7 @@ export const ContactSection: React.FC = () => {
                 href={BRAND_INFO.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md hover:border-amber-500 transition-colors group"
+                className="card-hover-lift flex items-center justify-between p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md hover:border-amber-500 transition-colors group"
               >
                 <div className="flex items-center gap-3">
                   <div className="h-9 w-9 rounded-xl bg-pink-500/10 text-pink-600 dark:text-pink-400 flex items-center justify-center shrink-0">
@@ -104,7 +104,7 @@ export const ContactSection: React.FC = () => {
                 <ArrowUpRight className="h-4 w-4 text-neutral-400 group-hover:text-amber-500 transition-colors" />
               </a>
 
-              <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-start gap-3">
+              <div className="card-hover-lift p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-start gap-3">
                 <div className="h-9 w-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                   <Phone className="h-4 w-4" />
                 </div>
@@ -117,7 +117,7 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-start gap-3">
+              <div className="card-hover-lift p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-start gap-3">
                 <div className="h-9 w-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                   <MapPin className="h-4 w-4" />
                 </div>
@@ -134,7 +134,7 @@ export const ContactSection: React.FC = () => {
           </div>
 
           {/* Right Column: Inquiry Contact Form */}
-          <div className="card-hover-lift lg:col-span-7 rounded-3xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-10 shadow-xl">
+          <div className="reveal-right card-hover-lift lg:col-span-7 rounded-3xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 p-6 sm:p-10 shadow-xl">
             <h3 className="font-display text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white">
               Send a Direct Project Brief
             </h3>

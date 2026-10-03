@@ -13,16 +13,25 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, onOpenVisualizer, onOpenAppDownload }) => {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [activeLighting, setActiveLighting] = useState<'warm' | 'golden' | 'daylight'>('warm');
-  const [scrollY, setScrollY] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
+  const ambientGlowRef = useRef<HTMLDivElement>(null);
+  const parallaxWrapperRef = useRef<HTMLDivElement>(null);
 
-  // Subtle scroll parallax
+  // High-performance scroll parallax directly on DOM nodes (0 React re-renders)
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
+          const y = window.scrollY;
+          if (y < 900) {
+            if (ambientGlowRef.current) {
+              ambientGlowRef.current.style.transform = `translate3d(-50%, ${Math.min(y * 0.1, 50)}px, 0)`;
+            }
+            if (parallaxWrapperRef.current) {
+              parallaxWrapperRef.current.style.transform = `translate3d(0, ${Math.min(y * 0.05, 25)}px, 0)`;
+            }
+          }
           ticking = false;
         });
         ticking = true;
@@ -53,10 +62,11 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
     <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
       {/* Background Subtle Ambient Gradients with Parallax Drift */}
       <div
+        ref={ambientGlowRef}
         className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[600px] w-[1000px] rounded-full opacity-20 blur-3xl dark:opacity-25 transition-transform duration-75 ease-out"
         style={{
           background: 'radial-gradient(circle, rgba(217,119,6,0.25) 0%, rgba(180,83,9,0.08) 50%, transparent 80%)',
-          transform: `translate(-50%, ${Math.min(scrollY * 0.12, 60)}px)`,
+          transform: 'translate3d(-50%, 0, 0)',
         }}
       />
 
@@ -85,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
           
           {/* Left Column: Editorial Value Proposition with Smooth Entrance */}
-          <div className="lg:col-span-6 animate-fade-in-up">
+          <div className="lg:col-span-6 reveal-left is-revealed">
             <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-950 dark:text-white leading-[1.14] break-words">
               Master painting craftsmanship meets <span className="gold-gradient-text">bespoke interior architecture</span>.
             </h1>
@@ -161,8 +171,9 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
 
           {/* Right Column: 3D Perspective Interactive Showcase Card with Levitation & Scroll Parallax */}
           <div 
-            className="lg:col-span-6 flex justify-center perspective-1000 animate-float transition-transform duration-75 ease-out"
-            style={{ transform: `translateY(${Math.min(scrollY * 0.05, 30)}px)` }}
+            ref={parallaxWrapperRef}
+            className="lg:col-span-6 flex justify-center perspective-1000 animate-float transition-transform duration-75 ease-out reveal-right is-revealed"
+            style={{ transform: 'translate3d(0, 0, 0)' }}
           >
             <div
               ref={cardRef}
@@ -180,7 +191,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProjects, onOpenBooking, on
                   src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"
                   alt="TruPaintz Luxury Living Room with Italian Stucco and Ambient Cove Lighting"
                   referrerPolicy="no-referrer"
-                  className={`h-full w-full object-cover transition-all duration-700 animate-slow-zoom ${
+                  className={`h-full w-full object-cover animate-slow-zoom ${
                     activeLighting === 'warm'
                       ? 'brightness-105 contrast-105 filter'
                       : activeLighting === 'golden'

@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 
 /**
- * Lightweight, performant hook to trigger smooth scroll reveal animations
- * on elements with the 'scroll-reveal' class as they enter the viewport.
+ * High-performance, lightweight hook to trigger smooth scroll reveal animations
+ * on elements with .scroll-reveal, .reveal-left, .reveal-right, .reveal-scale,
+ * and .reveal-stagger as they enter the viewport.
  */
 export function useScrollReveal() {
   useEffect(() => {
+    const selector = '.scroll-reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger';
+
     // Respect user's motion preferences
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.scroll-reveal').forEach((el) => {
+      document.querySelectorAll(selector).forEach((el) => {
         el.classList.add('is-revealed');
       });
       return;
@@ -16,35 +19,35 @@ export function useScrollReveal() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        for (let i = 0; i < entries.length; i++) {
+          const entry = entries[i];
           if (entry.isIntersecting) {
             entry.target.classList.add('is-revealed');
-            // Unobserve after revealing to save resources
             observer.unobserve(entry.target);
           }
-        });
+        }
       },
       {
-        threshold: 0.08,
-        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px',
       }
     );
 
-    const elements = document.querySelectorAll('.scroll-reveal');
-    elements.forEach((el) => observer.observe(el));
+    const observeAll = () => {
+      const elements = document.querySelectorAll(`${selector}:not(.is-revealed)`);
+      for (let i = 0; i < elements.length; i++) {
+        observer.observe(elements[i]);
+      }
+    };
 
-    // Handle dynamically mounted elements with MutationObserver if necessary
-    const mutationObserver = new MutationObserver(() => {
-      document.querySelectorAll('.scroll-reveal:not(.is-revealed)').forEach((el) => {
-        observer.observe(el);
-      });
-    });
+    observeAll();
 
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    // One secondary scan to catch any deferred components after initial layout
+    const timer = setTimeout(observeAll, 400);
 
     return () => {
+      clearTimeout(timer);
       observer.disconnect();
-      mutationObserver.disconnect();
     };
   }, []);
 }

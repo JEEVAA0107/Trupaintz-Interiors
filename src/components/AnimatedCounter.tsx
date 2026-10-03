@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface AnimatedCounterProps {
   end: number;
@@ -11,72 +11,79 @@ interface AnimatedCounterProps {
 
 export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   end,
-  duration = 1800,
+  duration = 1400,
   prefix = '',
   suffix = '',
   decimals = 0,
   className = '',
 }) => {
-  const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
   const elementRef = useRef<HTMLSpanElement>(null);
+  const animatedRef = useRef(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasStarted) {
-            setHasStarted(true);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
+    const el = elementRef.current;
+    if (!el) return;
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const finalFormatted = decimals > 0 ? end.toFixed(decimals) : end.toLocaleString();
+      el.textContent = `${prefix}${finalFormatted}${suffix}`;
+      return;
     }
 
-    return () => observer.disconnect();
-  }, [hasStarted]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry && entry.isIntersecting && !animatedRef.current) {
+          animatedRef.current = true;
+          observer.disconnect();
 
-  useEffect(() => {
-    if (!hasStarted) return;
+          let startTime: number | null = null;
+          let animationFrameId: number;
 
-    let startTime: number | null = null;
-    let animationFrameId: number;
+          const animate = (currentTime: number) => {
+            if (!startTime) startTime = currentTime;
+            const progress = Math.min((currentTime - startTime) / duration, 1);
+            // Cubic deceleration curve
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const currentVal = easeOut * end;
 
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
+            if (el) {
+              const formatted = decimals > 0 
+                ? currentVal.toFixed(decimals) 
+                : Math.floor(currentVal).toLocaleString();
+              el.textContent = `${prefix}${formatted}${suffix}`;
+            }
 
-      // Ease out cubic deceleration curve: 1 - (1 - t)^3
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      const currentVal = easeOut * end;
+            if (progress < 1) {
+              animationFrameId = requestAnimationFrame(animate);
+            } else if (el) {
+              const finalFormatted = decimals > 0 
+                ? end.toFixed(decimals) 
+                : end.toLocaleString();
+              el.textContent = `${prefix}${finalFormatted}${suffix}`;
+            }
+          };
 
-      setCount(currentVal);
+          animationFrameId = requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }
+    );
 
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
     };
+  }, [end, duration, prefix, suffix, decimals]);
 
-    animationFrameId = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [hasStarted, end, duration]);
-
-  const formattedCount = decimals > 0 
-    ? count.toFixed(decimals) 
-    : Math.floor(count).toLocaleString();
+  // Initial text shown before intersection / hydration
+  const initialText = `${prefix}${decimals > 0 ? end.toFixed(decimals) : end.toLocaleString()}${suffix}`;
 
   return (
     <span ref={elementRef} className={`tabular-nums ${className}`}>
-      {prefix}
-      {formattedCount}
-      {suffix}
+      {initialText}
     </span>
   );
 };

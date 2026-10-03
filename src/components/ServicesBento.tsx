@@ -26,11 +26,11 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </p>
         </div>
 
-        {/* Asymmetric Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {/* Asymmetric Bento Grid with Staggered Entrance */}
+        <div className="reveal-stagger grid grid-cols-1 md:grid-cols-12 gap-6">
           
           {/* Card 1: Italian Texture & Stucco (Featured Large Bento Card, Col-Span 8) */}
-          <div className="card-hover-lift md:col-span-8 rounded-3xl border border-neutral-200/80 bg-white/80 p-6 sm:p-8 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 flex flex-col justify-between relative overflow-hidden group">
+          <div className="stagger-item card-hover-lift md:col-span-8 rounded-3xl border border-neutral-200/80 bg-white/80 p-6 sm:p-8 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 flex flex-col justify-between relative overflow-hidden group">
             <div className="relative z-10">
               <div className="flex items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[0].highlightTag}</span>
@@ -74,7 +74,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 2: Modular Kitchens & Joinery (Col-Span 4) */}
-          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between group">
+          <div className="stagger-item card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[1].highlightTag}</span>
@@ -112,7 +112,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 3: Dustless Residential Painting (Col-Span 4) */}
-          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
+          <div className="stagger-item card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[2].highlightTag}</span>
@@ -141,7 +141,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 4: False Ceilings & Lighting (Col-Span 4) */}
-          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
+          <div className="stagger-item card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[3].highlightTag}</span>
@@ -170,7 +170,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
           </div>
 
           {/* Card 5: Waterproofing & Barrier (Col-Span 4) */}
-          <div className="card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
+          <div className="stagger-item card-hover-lift md:col-span-4 rounded-3xl border border-neutral-200/80 bg-white p-6 shadow-sm dark:border-neutral-800/80 dark:bg-neutral-900 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
                 <span className="font-semibold text-amber-600 dark:text-amber-400">{SERVICES_DATA[4].highlightTag}</span>

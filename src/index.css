@@ -63,32 +63,18 @@
 .interior-plaster-bg {
   background-color: var(--bg-interior-base);
   background-image: 
-    /* Ambient Ceiling Cove Illumination */
-    radial-gradient(ellipse 90% 45% at 50% -5%, var(--cove-glow-primary) 0%, transparent 70%),
-    /* Architectural Wall Wash Accents */
-    radial-gradient(circle 800px at 95% 20%, var(--cove-glow-gold) 0%, transparent 65%),
-    radial-gradient(circle 700px at 5% 65%, var(--cove-glow-primary) 0%, transparent 60%),
+    /* Ambient Ceiling Cove Illumination at top */
+    radial-gradient(ellipse 90% 400px at 50% 0%, var(--cove-glow-primary) 0%, transparent 70%),
     /* Subtle Architectural Elevation / Blueprint Grid (36px x 36px) */
     linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+  background-size: 100% 500px, 36px 36px, 36px 36px;
+  background-repeat: no-repeat, repeat, repeat;
 }
 
-/* Tactile Venetian Plaster Micro-Stipple Texture Overlay */
+/* Tactile Venetian Plaster Subtle Container */
 .interior-stucco-texture {
   position: relative;
-}
-.interior-stucco-texture::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-.dark .interior-stucco-texture::before {
-  opacity: 0.048;
 }
 
 /* Custom sleek scrollbar */
@@ -210,15 +196,13 @@
 
 .animate-slow-zoom {
   animation: heroSlowZoom 24s ease-in-out infinite;
-  will-change: transform;
 }
 
 /* Silky Smooth Scroll Reveal Animations */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(28px);
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 
 .scroll-reveal.is-revealed {
@@ -226,10 +210,76 @@
   transform: translateY(0);
 }
 
+/* Directional Smooth Reveal from Left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Directional Smooth Reveal from Right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Reveal with Subtle Scale */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.96) translateY(20px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.is-revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Staggered Item Animation within Containers */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-revealed .stagger-item,
+.stagger-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger Sequential Delays */
+.stagger-1, .stagger-item:nth-child(1) { transition-delay: 80ms; }
+.stagger-2, .stagger-item:nth-child(2) { transition-delay: 180ms; }
+.stagger-3, .stagger-item:nth-child(3) { transition-delay: 280ms; }
+.stagger-4, .stagger-item:nth-child(4) { transition-delay: 380ms; }
+.stagger-5, .stagger-item:nth-child(5) { transition-delay: 480ms; }
+.stagger-6, .stagger-item:nth-child(6) { transition-delay: 580ms; }
+
+/* Responsive Mobile Safety: soften directional transforms to prevent horizontal scroll */
+@media (max-width: 640px) {
+  .reveal-left {
+    transform: translateX(-14px);
+  }
+  .reveal-right {
+    transform: translateX(14px);
+  }
+}
+
 /* Subtle Card Lift on Hover */
 .card-hover-lift {
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
-  will-change: transform, box-shadow;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-hover-lift:hover {
@@ -244,7 +294,6 @@
 /* Luxury Image Hover Zoom */
 .img-hover-zoom {
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 }
 
 .group:hover .img-hover-zoom {
@@ -277,8 +326,7 @@
 .btn-premium {
   position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, box-shadow;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-premium:hover {

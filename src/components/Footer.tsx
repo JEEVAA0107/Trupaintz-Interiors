@@ -9,7 +9,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onScrollTo, onOpenBooking }) => {
   return (
-    <footer className="border-t border-neutral-200 bg-neutral-900 text-neutral-300 dark:border-neutral-800 dark:bg-black">
+    <footer className="scroll-reveal border-t border-neutral-200 bg-neutral-900 text-neutral-300 dark:border-neutral-800 dark:bg-black">
       <div className="mx-auto max-w-screen-2xl w-full px-4 py-16 sm:px-6 lg:px-10 xl:px-12">
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-neutral-800">

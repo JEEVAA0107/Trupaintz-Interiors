@@ -27,11 +27,11 @@ export const BlogSection: React.FC = () => {
         </div>
 
         {/* 3-Column Editorial Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-8">
           {BLOG_POSTS.map((post) => (
             <article
               key={post.id}
-              className="card-hover-lift flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 group"
+              className="stagger-item card-hover-lift flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-md dark:border-neutral-800/80 dark:bg-neutral-900/80 group"
             >
               <div>
                 {/* Media Image Container with 16:9 ratio */}
