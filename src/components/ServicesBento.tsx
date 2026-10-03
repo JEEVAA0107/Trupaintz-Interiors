@@ -11,11 +11,11 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({ onSelectService })
   const [activeModalService, setActiveModalService] = useState<ServiceItem | null>(null);
 
   return (
-    <section id="services" className="scroll-reveal py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-transparent">
+    <section id="services" className="scroll-reveal py-10 sm:py-16 lg:py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-transparent">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-14">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 sm:pb-12">
           <div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-950 dark:text-white [text-wrap:balance]">
               Comprehensive services engineered without compromise.

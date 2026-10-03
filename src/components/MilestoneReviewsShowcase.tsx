@@ -22,11 +22,11 @@ export const MilestoneReviewsShowcase: React.FC<MilestoneReviewsShowcaseProps> =
   });
 
   return (
-    <section id="reviews" className="scroll-reveal py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-amber-950/[0.015] dark:bg-neutral-900/30">
+    <section id="reviews" className="scroll-reveal py-10 sm:py-16 lg:py-24 border-t border-amber-900/10 dark:border-neutral-800/80 bg-amber-950/[0.015] dark:bg-neutral-900/30">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 sm:pb-12">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-500">
               <ShieldCheck className="h-3.5 w-3.5" />

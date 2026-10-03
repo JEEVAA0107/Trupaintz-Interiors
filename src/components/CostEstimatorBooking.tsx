@@ -105,11 +105,11 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
   };
 
   return (
-    <section id="estimator" className="scroll-reveal py-24 bg-amber-950/[0.015] dark:bg-neutral-950/40 border-t border-amber-900/10 dark:border-neutral-800/80">
+    <section id="estimator" className="scroll-reveal py-10 sm:py-16 lg:py-24 bg-amber-950/[0.015] dark:bg-neutral-950/40 border-t border-amber-900/10 dark:border-neutral-800/80">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 sm:pb-12">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-500">
               <Calculator className="h-3.5 w-3.5" />
@@ -339,10 +339,10 @@ export const CostEstimatorBooking: React.FC<CostEstimatorBookingProps> = ({ init
                     <button
                       type="button"
                       onClick={() => setIsExportModalOpen(true)}
-                      className="w-full flex items-center justify-center gap-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 py-3 text-xs font-semibold text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors shadow-sm"
+                      className="w-full flex items-center justify-center gap-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-3 py-3 text-xs font-semibold text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 active:scale-[0.99] transition-all shadow-sm text-center"
                     >
-                      <Download className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-                      <span>Export Service Cost Breakdown (CSV / BOQ)</span>
+                      <Download className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                      <span className="text-center">Export Service Cost Breakdown (CSV / BOQ)</span>
                     </button>
 
                     <button

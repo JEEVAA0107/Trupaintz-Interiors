@@ -14,11 +14,11 @@ export const RoomVisualizer3D: React.FC<RoomVisualizer3DProps> = ({ onSelectPale
   const [showTextureBump, setShowTextureBump] = useState(true);
 
   return (
-    <section id="visualizer" className="scroll-reveal relative py-20 bg-amber-950/[0.02] dark:bg-black/40 border-y border-amber-900/10 dark:border-neutral-800/80">
+    <section id="visualizer" className="scroll-reveal relative py-10 sm:py-16 lg:py-20 bg-amber-950/[0.02] dark:bg-black/40 border-y border-amber-900/10 dark:border-neutral-800/80">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 sm:pb-12">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-500">
               <Sparkles className="h-3.5 w-3.5" />

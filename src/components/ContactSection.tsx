@@ -62,7 +62,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="scroll-reveal py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
+    <section id="contact" className="scroll-reveal py-10 sm:py-16 lg:py-24 border-t border-amber-900/10 dark:border-neutral-800/80">
       <div className="mx-auto max-w-screen-2xl w-full px-4 sm:px-6 lg:px-10 xl:px-12">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">

@@ -29,7 +29,7 @@
 
   html {
     font-family: var(--font-sans);
-    overflow-x: clip;
+    overflow-x: hidden;
     width: 100%;
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
@@ -271,21 +271,17 @@
 .stagger-5, .stagger-item:nth-child(5) { transition-delay: 200ms; }
 .stagger-6, .stagger-item:nth-child(6) { transition-delay: 240ms; }
 
-/* Responsive Mobile Touch Safety */
+/* Responsive Mobile Touch Safety & Instant Scroll */
 @media (max-width: 768px) {
-  /* On mobile phones, remove horizontal transforms to eliminate touch-scroll ambiguity */
+  /* On mobile phones, render elements immediately visible to eliminate double-swipe/stuck perception */
+  .scroll-reveal,
   .reveal-left,
-  .reveal-right {
-    transform: none;
-    transition-duration: 0.35s;
-  }
-  .scroll-reveal {
-    transform: translateY(8px);
-    transition-duration: 0.35s;
-  }
+  .reveal-right,
+  .reveal-scale,
   .stagger-item {
-    transform: translateY(8px);
-    transition-duration: 0.35s;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
